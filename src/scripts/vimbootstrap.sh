@@ -1,73 +1,10 @@
 #!/bin/bash
 
-# Author: Michale Mitchell <mmitc@protonmail.com>
+## Author: Michael Mitchell 
 
-count=0
-function cleanup {
-    rm -rf ~/.vim/ ~/.vimrc ~/.tmp/
-    echo "\n\n\tI seem to have run into an issue... I'm bailing out now.\n
-    \tIf you had a .vimrc and .vim/, they are located at ~/.vimrc.bak and ~/.vim.bak/ respectively.
-    \tPlease feel free to file an issue if you can not figure out what has happened:
-    \thttps://github.com/AWildBeard/vim-bootstrap
-    \nBuh Bye now!"
-}
+###*** FUNCTIONS ***###
 
-function usage {
-    echo "
-    Usage:
-        vimbootstrap.sh [--uninstall]
-
-    Where:
-        --uninstall = an optional flag that reverts the changes made by the script
-
-    Written by Michael Mitchell <mmitc@protonmail.com>
-    "
-}
-
-function statusbegin {
-    echo -n "Status: [#"
-    count=$((count + 1))
-}
-
-function statusupdate {
-    echo -n "#"
-    count=$((count + 1))
-}
-
-function statusend {
-    echo -n "#] "
-    count=$((count + 1))
-    echo "$count/$count"
-}
-
-## BEGIN MAIN
-
-echo "script version: 1.20"
-
-echo -n "git version: "
-git --version | awk '{print $3}'
-if [[ $? -ne 0 ]]; then
-    echo "I DEPEND ON GIT! INSTALL TEH GIT"
-    exit 1
-fi
-
-echo -n "wget version: "
-wget  --version | head -n 1 | awk '{print $3}'
-if [[ $? -ne 0 ]]; then
-    echo "I DEPEND ON WGET! INSTALL TEH WGET"
-    exit 1
-fi
-
-echo ""
-statusbegin
-
-wget -O /dev/null github.com &> /dev/null
-if [[ $? -ne 0 ]]; then
-    echo "I HAVE NO INTERNET! INSTALL TEH INTERNET!"
-    exit 1
-fi
-
-if [[ $1 == "--uninstall" ]]; then
+function uninstall {
     echo ""
     statusbegin
     cleanup
@@ -75,16 +12,108 @@ if [[ $1 == "--uninstall" ]]; then
     mv ~/.vimrc.bak ~/.vimrc &> /dev/null
     statusupdate
     mv ~/.vim.bak ~/.vim &> /dev/null
+    statusupdate
+    mv ~/.tmp.bak ~/.tmp &> /dev/null
     statusend
     echo ""
     echo "DONE!"
     exit 0
+}
 
-elif [[ $1 -ne "" ]]; then
+function cleanup {
+    rm -rf ~/.vim/ ~/.vimrc ~/.tmp/
+}
+
+function usage {
+    echo "
+    Usage:
+        vimbootstrap.sh [-i] [-u]
+
+    Where:
+        -u = an optional flag that reverts the changes made by the script
+        -i = an optional flag that indicates you wish to bootstrap vim.
+
+    Version: $version
+
+    Written by Michael Mitchell <mmitc@protonmail.com>
+    "
+}
+
+function statusbegin {
+    echo -n "Status: [#"
+    COUNT=$((COUNT + 1))
+}
+
+function statusupdate {
+    echo -n "#"
+    COUNT=$((COUNT + 1))
+}
+
+function statusend {
+    echo -n "#] "
+    COUNT=$((COUNT + 1))
+    echo "$COUNT/$COUNT"
+}
+
+###*** END FUNCTIONS ***###
+
+###*** MAIN ***###
+
+version=1.21
+COUNT=0
+SET=FALSE
+
+while getopts :ui opt; do
+    case $opt in
+        u) ## Found uninstall flag
+            uninstall
+            ;;
+        i) ## Found install flag
+            SET=TRUE
+            break
+            ;;
+        \?) ## Found something that shouldn't be there.
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+if [[ $SET != TRUE ]]; then
     usage
-    exit 0
+    exit 1
 fi
 
+echo "script version: $version"
+
+git --version &>/dev/null || {
+    echo "I DEPEND ON GIT! INSTALL TEH GIT"
+    exit 1
+}
+
+wget --version &>/dev/null || {
+    echo "I DEPEND ON WGET! INSTALL TEH WGET"
+    exit 1
+}
+
+wget -O /dev/null github.com &> /dev/null || {
+    echo "I HAVE NO INTERNET! INSTALL TEH INTERNET!"
+    exit 1
+}
+
+
+echo -n "git version: "
+git --version | awk '{print $3}'
+
+echo -n "wget version: "
+wget  --version | head -n 1 | awk '{print $3}'
+
+echo ""
+statusbegin
+
+## Begin bootstrap
+
+mv ~/.tmp ~/.tmp.bak &> /dev/null
 mv ~/.vimrc ~/.vimrc.bak &> /dev/null
 statusupdate
 
@@ -267,11 +296,10 @@ hi def link cCustomClass Function
 " > ~/.vim/syntax/c.vim
 statusupdate
 
-wget -O ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim &>/dev/null
-if [[ $? -ne 0 ]]; then
-    echo "Failed to wget pathogen.vim from https://tpo.pe/pathogen.vim"
+wget -O ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim &>/dev/null || {
+    echo "\nFAILED to wget pathogen.vim from https://tpo.pe/pathogen.vim"
     cleanup
-fi
+}
 statusupdate
 
 git clone https://github.com/tpope/vim-sensible.git ~/.vim/bundle/vim-sensible &> /dev/null
@@ -286,5 +314,5 @@ echo ""
 echo "DONE!"
 exit 0
 
-## END MAIN
+###*** END MAIN ***###
 
