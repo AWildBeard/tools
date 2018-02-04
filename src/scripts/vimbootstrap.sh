@@ -304,6 +304,8 @@ statusupdate
 
 git clone https://github.com/tpope/vim-sensible.git ~/.vim/bundle/vim-sensible &> /dev/null
 statusupdate
+git clone https://github.com/jiangmiao/auto-pairs.git ~/.vim/bundle/auto-pairs &> /dev/null
+statusupdate
 git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree &> /dev/null
 statusupdate
 git clone https://github.com/Yggdroot/indentLine.git ~/.vim/bundle/indentLine &> /dev/null
