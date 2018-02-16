@@ -172,7 +172,8 @@ statusupdate
 mkdir -p ~/.vim/autoload/ ~/.vim/bundle/ ~/.vim/colors/ ~/.vim/syntax/ &> /dev/null
 statusupdate
 
-echo "\" Vim color file
+echo "
+\" Vim color file
 \" Converted from Textmate theme Monokai using Coloration v0.3.2 (http://github.com/sickill/coloration)
 \" Converted again from vim-monokai by hand \\o/
 
@@ -282,6 +283,14 @@ hi cssClassName ctermfg=148 ctermbg=NONE cterm=NONE guifg=#a6e22e guibg=NONE gui
 hi cssValueLength ctermfg=141 ctermbg=NONE cterm=NONE guifg=#ae81ff guibg=NONE gui=NONE
 hi cssCommonAttr ctermfg=81 ctermbg=NONE cterm=NONE guifg=#66d9ef guibg=NONE gui=NONE
 hi cssBraces ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
+hi rustMacro ctermfg=50 ctermbg=NONE cterm=NONE guifg=#00ffd7 guibg=NONE gui=NONE
+hi rustKeyword ctermfg=81 ctermbg=NONE cterm=NONE guifg=#5fd7ff guibg=NONE gui=NONE
+hi rustAssert ctermfg=50 ctermbg=NONE cterm=NONE guifg=#00ffd7 guibg=NONE gui=NONE
+hi rustAttribute ctermfg=white ctermbg=NONE cterm=NONE guifg=#ffffff guibg=NONE gui=NONE
+hi rustModPath ctermfg=white ctermbg=NONE cterm=NONE guifg=#ffffff guibg=NONE gui=NONE
+hi rustStorage ctermfg=208 ctermbg=NONE cterm=NONE guifg=#ff8700 guibg=NONE gui=NONE
+hi rustSigil ctermfg=226 ctermbg=NONE cterm=NONE guifg=#ffff00 guibg=NONE gui=NONE
+hi rustLifetime ctermfg=226 ctermbg=NONE cterm=NONE guifg=#ffff00 guibg=NONE gui=NONE
 
 \" The end!
 " > ~/.vim/colors/monokai.vim
