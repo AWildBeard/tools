@@ -1,5 +1,5 @@
 /*
- * Program: utf8_comp.rs
+ * Program: unicode_comp.rs
  * Author: Michael Mitchell
  * Description: This program spits out the UTF-8 escape characters that can be used
  *              to create the character or phrase that can be passed to it via 
@@ -36,9 +36,7 @@ fn main() {
     }
 
     for character in buf.trim().chars() {
-        print!("{}", character.escape_unicode().to_string());
+        print!("U+{:04X}\n", character as u16);
     }
-
-    println!();
 
 }
