@@ -1,7 +1,7 @@
 /*
  * Program: unicode_comp.rs
  * Author: Michael Mitchell
- * Description: This program spits out the UTF-8 escape characters that can be used
+ * Description: This program spits out the Unicode escape characters that can be used
  *              to create the character or phrase that can be passed to it via 
  *              the command line or during runtime. This program was created as a
  *              utility to analyze the Apple జ్ఞ problem. This program makes a best
