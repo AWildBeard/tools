@@ -36,7 +36,7 @@ fn main() {
     }
 
     for character in buf.trim().chars() {
-        print!("U+{:04X}\n", character as u16);
+        print!("U+{:06X}\n", character as u32);
     }
 
 }
