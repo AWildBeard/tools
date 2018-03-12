@@ -148,6 +148,7 @@ set shiftwidth=4
 set expandtab
 set backup
 set undodir=$HOME/.tmp
+set undofile
 set directory=$HOME/.tmp
 set backupdir=$HOME/.tmp
 
