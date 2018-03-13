@@ -75,6 +75,7 @@ case $storageDir in
         ;;
     *)
         ## Make sure $storageDir is not an implicit path.
+        storageDir="$(echo $storageDir | sed 's:/$::g')" ## Remove trailing /
         if [[ $storageDir == $(basename $storageDir) ]]; then
             ## If it is, just do the conversion for the lazy sods.
             storageDir=$(pwd)/$storageDir
@@ -89,6 +90,7 @@ case $backupDir in
         ;;
     *)
         ## Make sure $backupDir is not an implicit path.
+        backupDir="$(echo $backupDir | sed 's:/$::g')" ## Remove trailing /
         if [[ $backupDir == $(basename $backupDir) ]]; then
             ## If it is, just do the conversion for the lazy sods.
             backupDir=$(pwd)/$backupDir
