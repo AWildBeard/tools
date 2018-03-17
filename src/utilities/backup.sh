@@ -27,7 +27,7 @@ function backup {
 ## Function to display program usage
 function usage { 
     echo -e "The general purpose smart backup tool. VERSION: $version\n
-    Usage: $0 -b [BACKUP DIRECTORY] -s [STORAGE DIRECTORY]
+    Usage: $(basename $0) -b [BACKUP DIRECTORY] -s [STORAGE DIRECTORY]
     \n\tWhere BACKUP DIRECTORY is the directory to create a backup of.
     \tWhere STORAGE DIRECTORY is the directory to put the backup in.\n";
 }
