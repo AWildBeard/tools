@@ -39,8 +39,8 @@ function usage {
 OPTERR=0 # Quite getopts
 
 ## Initialize to NULL so we can compare later if need be.
-storageDir=NULL ## Directory to store the backup in
-backupDir=NULL  ## Directory to backup
+storageDir= ## Directory to store the backup in
+backupDir=  ## Directory to backup
 
 ## Use getopts to parse the command line options
 while getopts :hb:s: opt; do
@@ -68,35 +68,25 @@ while getopts :hb:s: opt; do
 done
 
 ## Check to make sure $storageDir and $backupDir are not NULL
-case $storageDir in
-    NULL) ## Never found the storage flag :(
-        usage
-        exit 1
-        ;;
-    *)
-        ## Make sure $storageDir is not an implicit path.
-        storageDir="$(echo $storageDir | sed 's:/$::g')" ## Remove trailing /
-        if [[ $storageDir == $(basename $storageDir) ]]; then
-            ## If it is, just do the conversion for the lazy sods.
-            storageDir=$(pwd)/$storageDir
-        fi
-        ;;
-esac
+if [[ -z ${storageDir} ]]; then
+    usage
+    exit 1
+fi
 
-case $backupDir in
-    NULL) ## Never found the storage flag :(
-        usage
-        exit 1
-        ;;
-    *)
-        ## Make sure $backupDir is not an implicit path.
-        backupDir="$(echo $backupDir | sed 's:/$::g')" ## Remove trailing /
-        if [[ $backupDir == $(basename $backupDir) ]]; then
-            ## If it is, just do the conversion for the lazy sods.
-            backupDir=$(pwd)/$backupDir
-        fi
-        ;;
-esac
+## Make sure $storageDir is not an implicit path.
+storageDir="$(echo $storageDir | sed 's:/$::g')" ## Remove trailing /
+if [[ $storageDir == $(basename $storageDir) ]]; then
+    ## If it is, just do the conversion for the lazy sods.
+    storageDir=$(pwd)/$storageDir
+fi
+
+if [[ -z ${backupDir} ]]; then
+    usage
+    exit 1
+fi
+
+## Make sure $backupDir is not an implicit path.
+backupDir="$(echo $backupDir | sed 's:/$::g')" ## Remove trailing /
 
 ## Determine the name for the backup file from the directory being backed up
 backupName=$(basename $backupDir) ## The name to name the backup file
