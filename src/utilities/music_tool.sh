@@ -126,7 +126,7 @@ else  ## Encode
     parseForNull ${outputFile}
     
     echo "Making stego temporary file"
-    minimodem --tx -f $rawData $rate <<< ${args[0]}
+    minimodem --tx -f $rawData $rate <<< $message
     
     if [[ $? -ne 0 ]]; then
         echo "Failed to encode data :( Try some different characters!"
