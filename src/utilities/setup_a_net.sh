@@ -67,7 +67,6 @@ USAGE:
         etc.
 
 EXAMPLES:
-    
     $0 -s -w wlp58s0f1 -l enp58s0f1 -n 172.22.12.1/24
         This will configure a masquerade for enp58s0f1
         that routes its traffice out wlp58s0f1.
@@ -80,7 +79,6 @@ EXAMPLES:
         chanes that can't be reverted by a reboot.
 
 AUTHOR:
-
     Michael Mitchell
 "
 }
